@@ -24,7 +24,7 @@ class ViewController: UIViewController {
     
     @IBAction func comecar(_ sender: Any) {
         
-        btComecar.isEnabled = false
+        btComecar.isHidden = false
 
         NotificationCenter.default.addObserver(self, selector: #selector(receievedUrlFromSpotify), name: NSNotification.Name.Spotify.authURLOpened, object: nil)
         
@@ -71,7 +71,7 @@ class ViewController: UIViewController {
         // When changing the UI, all actions must be done on the main thread,
         // since this can be called from a notification which doesn't run on
         // the main thread, we must add this code to the main thread's queue
-        btComecar.isEnabled = true
+        btComecar.isHidden = true
         
         DispatchQueue.main.async {
             let alertController = UIAlertController(title: "Error",

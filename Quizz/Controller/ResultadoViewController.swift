@@ -28,7 +28,6 @@ class ResultadoViewController: UIViewController, UITableViewDataSource, UITableV
         
         cellResultado.nomeArtista.text = Singleton.shared.artistNames[indexPath.row]
         cellResultado.nomeMusica.text = Singleton.shared.musicNames[indexPath.row]
-        print(Singleton.shared.resultadosFinal[indexPath.row])
         if Singleton.shared.resultadosFinal[indexPath.row] == true {
             cellResultado.resultImage.image = #imageLiteral(resourceName: "Oval")
         } else {
@@ -61,7 +60,6 @@ class ResultadoViewController: UIViewController, UITableViewDataSource, UITableV
     }
     override func viewWillAppear(_ animated: Bool) {
         hit.text = ("\(Singleton.shared.acertos)")
-        print(Singleton.shared.acertos)
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }

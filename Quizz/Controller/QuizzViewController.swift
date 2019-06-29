@@ -102,8 +102,6 @@ class QuizzViewController: UIViewController {
            
 //            Singleton.shared.acertos = hits
             numberOfQuestion = Int((0...perguntas.count-1).randomElement()!)
-           
-            
             performSegue(withIdentifier: "resultSegue", sender: nil)
             //            if let vc = storyboard?.instantiateViewController(withIdentifier: "Resultado") as? ResultadoViewController {
             //                self.dismiss(animated: true) {
@@ -140,15 +138,12 @@ class QuizzViewController: UIViewController {
             return
         }
         
-        print(perguntas[numberOfQuestion].musica)
-        
         self.player.playSpotifyURI(perguntas[numberOfQuestion].musica, startingWith: 0, startingWithPosition: Double((10...30).randomElement()!)) { (error) in
             if let error = error {
                 print(error.localizedDescription)
             }
         }
         
-        print(player.metadata.currentTrack?.artistUri)
         
         
         //        do {
@@ -193,7 +188,7 @@ class QuizzViewController: UIViewController {
 
 extension QuizzViewController: SPTAudioStreamingDelegate, SPTAudioStreamingPlaybackDelegate {
     func audioStreamingDidLogin(_ audioStreaming: SPTAudioStreamingController) {
-        print("StreamingDidLogin Player")
+        print("StreamingDidLogin Player pronto!")
         //Terminar carregamento
         logged = true
         tocarMusica()
@@ -201,10 +196,10 @@ extension QuizzViewController: SPTAudioStreamingDelegate, SPTAudioStreamingPlayb
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController, didChange metadata: SPTPlaybackMetadata) {
         if Singleton.shared.artistNames.last != metadata.currentTrack?.artistName {
-        Singleton.shared.artistNames.append(metadata.currentTrack?.artistName ?? "")
+        Singleton.shared.artistNames.append(metadata.currentTrack?.artistName ?? "Artista não encontrado")
         }
         if Singleton.shared.musicNames.last != metadata.currentTrack?.name{
-            Singleton.shared.musicNames.append(metadata.currentTrack?.name ?? "")
+            Singleton.shared.musicNames.append(metadata.currentTrack?.name ?? "Música não encontrada")
         }
         if Singleton.shared.urlImageArtista.last != metadata.currentTrack?.albumCoverArtURL {
             Singleton.shared.urlImageArtista.append((metadata.currentTrack?.albumCoverArtURL) ?? "")
