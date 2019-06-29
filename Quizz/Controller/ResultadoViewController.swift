@@ -9,15 +9,36 @@
 import UIKit
 
 class ResultadoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    @IBOutlet weak var hit: UILabel!
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.leastNonzeroMagnitude
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat.leastNonzeroMagnitude
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellResultado = tableView.dequeueReusableCell(withIdentifier: "CellResultado", for: indexPath) as! ResultadoTableViewCell
         cellResultado.background.layer.cornerRadius = 10
-        cellResultado.coverImage.layer.cornerRadius = 10
-       
+        
+        cellResultado.nomeArtista.text = Singleton.shared.artistNames[indexPath.row]
+        cellResultado.nomeMusica.text = Singleton.shared.musicNames[indexPath.row]
+        print(Singleton.shared.resultadosFinal[indexPath.row])
+        if Singleton.shared.resultadosFinal[indexPath.row] == true {
+            cellResultado.resultImage.image = #imageLiteral(resourceName: "Oval")
+        } else {
+            cellResultado.resultImage.image = #imageLiteral(resourceName: "BegeBolinha")
+        }
+        
+        let url = URL(string: Singleton.shared.urlImageArtista[indexPath.row])
+        let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+        cellResultado.imagemArtista.image = UIImage(data: data!)
+        
         
         return cellResultado
     }
@@ -37,6 +58,12 @@ class ResultadoViewController: UIViewController, UITableViewDataSource, UITableV
         
         
         // Do any additional setup after loading the view.
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        hit.text = ("\(Singleton.shared.acertos)")
+        print(Singleton.shared.acertos)
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
     
     //    override func viewWillAppear(_ animated: Bool) {

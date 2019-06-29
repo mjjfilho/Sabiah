@@ -46,7 +46,6 @@ class ViewController: UIViewController {
     
     @objc func receievedUrlFromSpotify(_ notification: Notification) {
         guard let url = notification.object as? URL else { return }
-        //Alteração qualquer
         // Remove the observer from the Notification Center
         NotificationCenter.default.removeObserver(self,
                                                   name: NSNotification.Name.Spotify.authURLOpened,

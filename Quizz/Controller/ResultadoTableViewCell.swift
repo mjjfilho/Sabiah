@@ -10,12 +10,16 @@ import UIKit
 
 class ResultadoTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var viewImage: UIView!
+
+    @IBOutlet weak var resultImage: UIImageView!
     @IBOutlet weak var nomeMusica: UILabel!
     @IBOutlet weak var nomeArtista: UILabel!
     @IBOutlet weak var background: UIView!
-    @IBOutlet weak var coverImage: UIImageView!
+    @IBOutlet weak var imagemArtista: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         // Initialization code
     }
 

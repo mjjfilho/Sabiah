@@ -17,7 +17,10 @@ class Singleton {
         
     }
     var acertos = 0
-    var resultadoFinal : [Bool] = []
+    var resultadosFinal :[Bool] = []
+    var artistNames     :[String] = []
+    var musicNames      :[String] = []
+    var urlImageArtista :[String] = []
     let perguntas = [
         Pergunta(id           :0,
                  nomeMusica   :"Banho de sol",

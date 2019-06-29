@@ -9,7 +9,6 @@
 import UIKit
 import AVFoundation
 
-
 class QuizzViewController: UIViewController {
     @IBOutlet weak var questionMusician: UIImageView!
     @IBOutlet weak var questionLabel: UILabel!
@@ -75,12 +74,14 @@ class QuizzViewController: UIViewController {
                 optionVisualFeedback[sender.tag].image = #imageLiteral(resourceName: "correct")
                 enumVisual[numberOfQuestion].image = #imageLiteral(resourceName: "Oval")
                 Singleton.shared.acertos += 1
+                Singleton.shared.resultadosFinal.append(true)
                 /*aparece a imagem certa - done e a bolinha laranja */
             }
             else {
                 optionVisualFeedback[sender.tag].image = #imageLiteral(resourceName: "Path Copy")
                 enumVisual[numberOfQuestion].image = #imageLiteral(resourceName: "BolinhaBlack")
                 optionVisualFeedback[correctAnswer].image = #imageLiteral(resourceName: "correct")
+                Singleton.shared.resultadosFinal.append(false)
                 /* aparece a imagem certa, aparece a imagem errada, em suas respectivas questões e a bolinha preta */
             }
         }
@@ -96,12 +97,12 @@ class QuizzViewController: UIViewController {
         //Anda na trilha de perguntas
         numberOfQuestion += 1
         if numberOfQuestion < 5 {
-            print(numberOfQuestion)
+            
         } else {
-            print(numberOfQuestion)
-            Singleton.shared.acertos = hits
+           
+//            Singleton.shared.acertos = hits
             numberOfQuestion = Int((0...perguntas.count-1).randomElement()!)
-            print(numberOfQuestion)
+           
             
             performSegue(withIdentifier: "resultSegue", sender: nil)
             //            if let vc = storyboard?.instantiateViewController(withIdentifier: "Resultado") as? ResultadoViewController {
@@ -147,12 +148,30 @@ class QuizzViewController: UIViewController {
             }
         }
         
+        print(player.metadata.currentTrack?.artistUri)
+        
         
         //        do {
         //            audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath:Bundle.main.path(forResource: musica, ofType: "mp3")!))
         //            audioPlayer?.play()
         //        } catch {}
+        
     }
+//    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+//        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+//    }
+    
+//    func downloadImage(from url: URL) {
+//        print("Download Started")
+//        getData(from: url) { data, response, error in
+//            guard let data = data, error == nil else { return }
+//            print(response?.suggestedFilename ?? url.lastPathComponent)
+//            print("Download Finished")
+//            DispatchQueue.main.async() {
+//                self.imageView.image = UIImage(data: data)
+//            }
+//        }
+//    }
     
     //    func paraMusica() {
     //        audioPlayer?.stop()
@@ -170,12 +189,27 @@ class QuizzViewController: UIViewController {
     
 }
 
+
+
 extension QuizzViewController: SPTAudioStreamingDelegate, SPTAudioStreamingPlaybackDelegate {
     func audioStreamingDidLogin(_ audioStreaming: SPTAudioStreamingController) {
         print("StreamingDidLogin Player")
         //Terminar carregamento
         logged = true
         tocarMusica()
+    }
+    
+    func audioStreaming(_ audioStreaming: SPTAudioStreamingController, didChange metadata: SPTPlaybackMetadata) {
+        if Singleton.shared.artistNames.last != metadata.currentTrack?.artistName {
+        Singleton.shared.artistNames.append(metadata.currentTrack?.artistName ?? "")
+        }
+        if Singleton.shared.musicNames.last != metadata.currentTrack?.name{
+            Singleton.shared.musicNames.append(metadata.currentTrack?.name ?? "")
+        }
+        if Singleton.shared.urlImageArtista.last != metadata.currentTrack?.albumCoverArtURL {
+            Singleton.shared.urlImageArtista.append((metadata.currentTrack?.albumCoverArtURL) ?? "")
+        }
+        
     }
 }
 
