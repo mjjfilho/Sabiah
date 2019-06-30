@@ -8,10 +8,11 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class BeginViewController: UIViewController {
     
     var auth = SPTAuth.defaultInstance()
     var session: SPTSession!
+    var beginController: ResultadoViewController!
 
     @IBOutlet weak var btComecar: UIButton!
     
@@ -53,6 +54,7 @@ class ViewController: UIViewController {
         
         SPTAuth.defaultInstance().handleAuthCallback(withTriggeredAuthURL: url) { (error, session) in
             if let error = error {
+                self.btComecar.isHidden = false
                 // Pass our error onto another method which will determine how to show it
                 self.displayErrorMessage(error: error)
                 return

@@ -9,7 +9,17 @@
 import UIKit
 
 class ResultadoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    
+    var player                 : SPTAudioStreamingController = SPTAudioStreamingController.sharedInstance()
+    var session                : SPTSession?
+    var imagemArtista          : [UIImage] = []
+    var imagesUrl = Singleton.shared.urlImageArtista
     @IBOutlet weak var hit: UILabel!
+    @IBOutlet weak var dismissBt: UIButton!
+    
+    var quizViewController: QuizzViewController!
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
@@ -33,10 +43,16 @@ class ResultadoViewController: UIViewController, UITableViewDataSource, UITableV
         } else {
             cellResultado.resultImage.image = #imageLiteral(resourceName: "BegeBolinha")
         }
-        
-        let url = URL(string: Singleton.shared.urlImageArtista[indexPath.row])
-        let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-        cellResultado.imagemArtista.image = UIImage(data: data!)
+        //              if cellResultado.imagemArtista.image == nil {
+        //        let url = URL(string: Singleton.shared.urlImageArtista[indexPath.row])
+        //
+        //        let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+        //
+        //        cellResultado.imagemArtista.image = UIImage(data: data!)
+        //        }
+        cellResultado.imagemArtista.image = imagemArtista[indexPath.row]
+        cellResultado.viewImage.layer.cornerRadius = 10
+        cellResultado.viewImage.clipsToBounds = true
         
         
         return cellResultado
@@ -52,6 +68,16 @@ class ResultadoViewController: UIViewController, UITableViewDataSource, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        for image in imagesUrl {
+            let url = URL(string: image)
+            let data = try? Data(contentsOf: url!)
+            imagemArtista.append(UIImage(data: (data)!)!)
+            
+        }
+        
+        
+        
         tableView.dataSource = self
         tableView.delegate = self
         
@@ -59,11 +85,26 @@ class ResultadoViewController: UIViewController, UITableViewDataSource, UITableV
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
+        
         hit.text = ("\(Singleton.shared.acertos)")
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tocarMusica(position: indexPath.row)
     }
     
+    func tocarMusica(position: Int) {
+        self.player.playSpotifyURI("\(Singleton.shared.listaMusic[position].musica)", startingWith: 0, startingWithPosition: 0) { (error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    @IBAction func btdismiss(_ sender: Any) {
+        performSegue(withIdentifier: "backToBegin", sender: nil)
+        
+    }
     //    override func viewWillAppear(_ animated: Bool) {
     //        acertosLabel.text = "Você obteve 
     //\(acertos) acertos "
@@ -81,17 +122,22 @@ class ResultadoViewController: UIViewController, UITableViewDataSource, UITableV
     //        }
     //
     
+
+
+
+
+// MARK: - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    // Get the new view controller using segue.destination.
+    // Pass the selected object to the new view controller.
+    
+    if segue.identifier == "backToBegin"{
+        let dest = segue.destination as! BeginViewController
+        dest.beginController = self
+    }
 }
 
 
-/*
- // MARK: - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
- // Get the new view controller using segue.destination.
- // Pass the selected object to the new view controller.
- }
- */
-
-
+}

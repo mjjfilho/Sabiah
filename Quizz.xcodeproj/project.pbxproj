@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F523769D22A1AC1600FEA409 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F523769C22A1AC1600FEA409 /* AppDelegate.swift */; };
-		F523769F22A1AC1600FEA409 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F523769E22A1AC1600FEA409 /* ViewController.swift */; };
+		F523769F22A1AC1600FEA409 /* BeginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F523769E22A1AC1600FEA409 /* BeginViewController.swift */; };
 		F52376A222A1AC1600FEA409 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F52376A022A1AC1600FEA409 /* Main.storyboard */; };
 		F52376A722A1AC1800FEA409 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F52376A522A1AC1800FEA409 /* LaunchScreen.storyboard */; };
 		F52376AF22A1B30F00FEA409 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52376AE22A1B30F00FEA409 /* Singleton.swift */; };
@@ -27,7 +27,7 @@
 /* Begin PBXFileReference section */
 		F523769922A1AC1600FEA409 /* Quizz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quizz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F523769C22A1AC1600FEA409 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F523769E22A1AC1600FEA409 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F523769E22A1AC1600FEA409 /* BeginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeginViewController.swift; sourceTree = "<group>"; };
 		F52376A122A1AC1600FEA409 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F52376A622A1AC1800FEA409 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F52376A822A1AC1800FEA409 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 		F52376BA22A1BE2F00FEA409 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				F523769E22A1AC1600FEA409 /* ViewController.swift */,
+				F523769E22A1AC1600FEA409 /* BeginViewController.swift */,
 				F52376B122A1B33A00FEA409 /* QuizzViewController.swift */,
 				F52376B322A1B34800FEA409 /* ResultadoViewController.swift */,
 				F538C8FC22C3EC7D00A5470D /* PlayerViewController.swift */,
@@ -203,7 +203,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F52376AF22A1B30F00FEA409 /* Singleton.swift in Sources */,
-				F523769F22A1AC1600FEA409 /* ViewController.swift in Sources */,
+				F523769F22A1AC1600FEA409 /* BeginViewController.swift in Sources */,
 				F52376B422A1B34800FEA409 /* ResultadoViewController.swift in Sources */,
 				F571536422C43E1400A9D7CE /* Extensions.swift in Sources */,
 				F538C8FD22C3EC7D00A5470D /* PlayerViewController.swift in Sources */,

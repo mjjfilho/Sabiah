@@ -9,27 +9,18 @@
 import UIKit
 
 class PlayerViewController: UIViewController {
-
-
-    @IBOutlet weak var labelTeste: UILabel!
-    @IBOutlet weak var imgTeste: UIImageView!
     
     var player : SPTAudioStreamingController = SPTAudioStreamingController.sharedInstance()
     var session: SPTSession?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
-    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         handleNewSession()
-        labelTeste.text = self.player.metadata.currentTrack?.artistName
     }
-    
-   
     
     func handleNewSession() {
         if let session = session {
@@ -47,7 +38,6 @@ extension PlayerViewController: SPTAudioStreamingDelegate, SPTAudioStreamingPlay
             if let error = error {
                 print(error.localizedDescription)
             }
-            
         }
     }
 }

@@ -21,6 +21,7 @@ class Singleton {
     var artistNames     :[String] = []
     var musicNames      :[String] = []
     var urlImageArtista :[String] = []
+    var listaMusic      :[Pergunta] = []
     let perguntas = [
         Pergunta(id           :0,
                  nomeMusica   :"Banho de sol",
@@ -81,7 +82,7 @@ class Singleton {
                  nomeMusica   :"Rex Orange County",
                  nomeArtista  :"Sunflower",
                  questao      :"Qual é o nome\nda música",
-                 respostas    :["i`m not the right one",
+                 respostas    :["i'm not the right one",
                                 "Eu caçador de mim",
                                 "Sunflower",
                                 "Haruka Kanata"],

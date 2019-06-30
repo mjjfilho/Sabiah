@@ -24,13 +24,14 @@ class QuizzViewController: UIViewController {
     
     //Singleton
     var perguntas              : [Pergunta] = Singleton.shared.perguntas.shuffled()
-    var musica                 : String {return perguntas[numberOfQuestion].musica}
+    var musica                 : String {return perguntas[idxQuestion].musica}
     
     //Variaveis locais
-    var numberOfQuestion  = 0
+    var idxQuestion  = 0
     var hits                 : Int = 0
     var misses               : Int = 0
     var correctAnswer        : Int = 0
+    let countQuestion    : Int = 5
     var answerDidSelect      : Bool = false
     
     //Variaveis SPT
@@ -42,6 +43,15 @@ class QuizzViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        for perg in perguntas {
+            if  (perg.id == perguntas[countQuestion].id) || (perg.id == perguntas[countQuestion-1].id) || (perg.id == perguntas[countQuestion-2].id) || (perg.id == perguntas[countQuestion-3].id) || (perg.id == perguntas[countQuestion-4].id)  || (perg.id == perguntas[countQuestion-5].id) {
+                
+                Singleton.shared.listaMusic.append(perg)
+                print(Singleton.shared.listaMusic)
+                
+            }
+            
+        }
         updateQuestions()
         optionA.layer.cornerRadius = 10
         optionB.layer.cornerRadius = 10
@@ -72,14 +82,14 @@ class QuizzViewController: UIViewController {
         if answerDidSelect == false {
             if sender.tag == correctAnswer {
                 optionVisualFeedback[sender.tag].image = #imageLiteral(resourceName: "correct")
-                enumVisual[numberOfQuestion].image = #imageLiteral(resourceName: "Oval")
+                enumVisual[idxQuestion].image = #imageLiteral(resourceName: "Oval")
                 Singleton.shared.acertos += 1
                 Singleton.shared.resultadosFinal.append(true)
                 /*aparece a imagem certa - done e a bolinha laranja */
             }
             else {
                 optionVisualFeedback[sender.tag].image = #imageLiteral(resourceName: "Path Copy")
-                enumVisual[numberOfQuestion].image = #imageLiteral(resourceName: "BolinhaBlack")
+                enumVisual[idxQuestion].image = #imageLiteral(resourceName: "BolinhaBlack")
                 optionVisualFeedback[correctAnswer].image = #imageLiteral(resourceName: "correct")
                 Singleton.shared.resultadosFinal.append(false)
                 /* aparece a imagem certa, aparece a imagem errada, em suas respectivas questões e a bolinha preta */
@@ -95,28 +105,38 @@ class QuizzViewController: UIViewController {
     
     func nextQuestion () {
         //Anda na trilha de perguntas
-        numberOfQuestion += 1
-        if numberOfQuestion < 5 {
+        idxQuestion += 1
+        if idxQuestion < 5 {
             
         } else {
            
 //            Singleton.shared.acertos = hits
-            numberOfQuestion = Int((0...perguntas.count-1).randomElement()!)
+            idxQuestion = Int((0...perguntas.count-1).randomElement()!)
+//            if let vc = storyboard?.instantiateInitialViewController(withIndentifier:"Resultado") as? ResultadoViewController {
+//                self.dismiss(animated: true) {
+//                    self.performSegue(withIdentifier: "resultSegue", sender: nil)
+//                }
+//            }
+            
             performSegue(withIdentifier: "resultSegue", sender: nil)
-            //            if let vc = storyboard?.instantiateViewController(withIdentifier: "Resultado") as? ResultadoViewController {
-            //                self.dismiss(animated: true) {
-            //                    self.navigationController?.pushViewController(vc, animated: true)
-            //                }
-            //            }
+//
+//             self.dismiss(animated: true, completion: nil)
+            
+        
+//                        if let vc = storyboard?.instantiateViewController(withIdentifier: "Resultado") as? ResultadoViewController {
+//                            self.dismiss(animated: true) {
+//                                self.navigationController?.pushViewController(vc, animated: true)
+//                            }
+//                        }
         }
     }
     func updateQuestions() {
-        questionLabel.text = perguntas[numberOfQuestion].questao
-        optionA.setTitle(perguntas[numberOfQuestion].respostas[0], for: UIControl.State.normal)
-        optionB.setTitle(perguntas[numberOfQuestion].respostas[1], for: UIControl.State.normal)
-        optionC.setTitle(perguntas[numberOfQuestion].respostas[2], for: UIControl.State.normal)
-        optionD.setTitle(perguntas[numberOfQuestion].respostas[3], for: UIControl.State.normal)
-        correctAnswer = perguntas[numberOfQuestion].correct
+        questionLabel.text = perguntas[idxQuestion].questao
+        optionA.setTitle(perguntas[idxQuestion].respostas[0], for: UIControl.State.normal)
+        optionB.setTitle(perguntas[idxQuestion].respostas[1], for: UIControl.State.normal)
+        optionC.setTitle(perguntas[idxQuestion].respostas[2], for: UIControl.State.normal)
+        optionD.setTitle(perguntas[idxQuestion].respostas[3], for: UIControl.State.normal)
+        correctAnswer = perguntas[idxQuestion].correct
         answerDidSelect = false
         btNext.isHidden = true
         for i in optionVisualFeedback {
@@ -138,7 +158,7 @@ class QuizzViewController: UIViewController {
             return
         }
         
-        self.player.playSpotifyURI(perguntas[numberOfQuestion].musica, startingWith: 0, startingWithPosition: Double((10...30).randomElement()!)) { (error) in
+        self.player.playSpotifyURI(perguntas[idxQuestion].musica, startingWith: 0, startingWithPosition: Double((10...30).randomElement()!)) { (error) in
             if let error = error {
                 print(error.localizedDescription)
             }
@@ -172,15 +192,20 @@ class QuizzViewController: UIViewController {
     //        audioPlayer?.stop()
     //    }
     
-    /*
+    
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
      // Get the new view controller using segue.destination.
      // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "resultSegue"{
+            let dest = segue.destination as! ResultadoViewController
+            dest.quizViewController = self
+        }
      }
-     */
+ 
     
 }
 
