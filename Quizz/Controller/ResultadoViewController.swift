@@ -75,9 +75,6 @@ class ResultadoViewController: UIViewController, UITableViewDataSource, UITableV
             imagemArtista.append(UIImage(data: (data)!)!)
             
         }
-        
-        
-        
         tableView.dataSource = self
         tableView.delegate = self
         
@@ -103,6 +100,12 @@ class ResultadoViewController: UIViewController, UITableViewDataSource, UITableV
     
     @IBAction func btdismiss(_ sender: Any) {
         performSegue(withIdentifier: "backToBegin", sender: nil)
+        Singleton.shared.acertos = 0
+        Singleton.shared.artistNames = []
+        Singleton.shared.listaMusic = []
+        Singleton.shared.musicNames = []
+        Singleton.shared.urlImageArtista = []
+        Singleton.shared.resultadosFinal = []
         
     }
     //    override func viewWillAppear(_ animated: Bool) {

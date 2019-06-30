@@ -4,6 +4,16 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>icon.png</string>
+		<string>icon_83.5@2x.png</string>
+		<string>icon_76pt@2x.png</string>
+		<string>icon_76pt.png</string>
+		<string>icon_60pt@3x</string>
+		<string>icon_60pt</string>
+		<string>icon_60pt@2x</string>
+	</array>
 	<key>CFBundleDisplayName</key>
 	<string>Sabiah</string>
 	<key>CFBundleExecutable</key>
@@ -54,9 +64,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-        <string>spotify-action</string>
-    </array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>spotify-action</string>
+	</array>
 </dict>
 </plist>
