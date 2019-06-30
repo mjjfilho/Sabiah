@@ -69,6 +69,7 @@ class ResultadoViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         for image in imagesUrl {
             let url = URL(string: image)
             let data = try? Data(contentsOf: url!)
@@ -82,6 +83,7 @@ class ResultadoViewController: UIViewController, UITableViewDataSource, UITableV
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
+        tocarMusica(position: (0...4).randomElement()!)
         
         hit.text = ("\(Singleton.shared.acertos)")
     }
@@ -91,10 +93,13 @@ class ResultadoViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tocarMusica(position: Int) {
-        self.player.playSpotifyURI("\(Singleton.shared.listaMusic[position].musica)", startingWith: 0, startingWithPosition: 0) { (error) in
+        self.player.playSpotifyURI("\(Singleton.shared.listaMusic[position].musica)", startingWith: 0, startingWithPosition: 0) {
+            (error) in
             if let error = error {
                 print(error.localizedDescription)
             }
+            print(position)
+            print(Singleton.shared.listaMusic[position].nomeMusica)
         }
     }
     
