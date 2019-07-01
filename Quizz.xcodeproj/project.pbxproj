@@ -428,7 +428,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = "Apple-Developer-Academy.Quizz";
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.appleDeveloperAcademy.Quizz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Quizz/Quizz-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -452,7 +452,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = "Apple-Developer-Academy.Quizz";
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.appleDeveloperAcademy.Quizz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Quizz/Quizz-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
