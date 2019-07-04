@@ -11,6 +11,7 @@ import UIKit
 class ResultadoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     
+    @IBOutlet weak var resultadoCount: UILabel!
     var player                 : SPTAudioStreamingController = SPTAudioStreamingController.sharedInstance()
     var session                : SPTSession?
     var imagemArtista          : [UIImage] = []
@@ -21,7 +22,7 @@ class ResultadoViewController: UIViewController, UITableViewDataSource, UITableV
     var quizViewController: QuizzViewController!
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return Singleton.shared.artistNames.count
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -69,6 +70,7 @@ class ResultadoViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        resultadoCount.text = "/\(Singleton.shared.artistNames.count)"
         
         for image in imagesUrl {
             let url = URL(string: image)
@@ -104,7 +106,8 @@ class ResultadoViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     @IBAction func btdismiss(_ sender: Any) {
-        performSegue(withIdentifier: "backToBegin", sender: nil)
+        self.player.setIsPlaying(false)
+    
         Singleton.shared.acertos = 0
         Singleton.shared.artistNames = []
         Singleton.shared.listaMusic = []

@@ -24,8 +24,21 @@ class BeginViewController: UIViewController {
     }
     
     @IBAction func comecar(_ sender: Any) {
+        let alertController = UIAlertController(title: "\"Sabiah\" Deseja Usar \"Spotify\"para iniciar Sessão",
+                                                message: "Isso permite que o app e o site compartilhem informações sobre você.",
+                                                preferredStyle: .actionSheet)
         
-        btComecar.isHidden = false
+        let cancelar = UIAlertAction(title: "Cancelar", style: .default, handler: nil)
+        
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: authSpotify))
+        alertController.addAction(cancelar)
+        self.present(alertController, animated: true, completion: nil)
+    
+        
+    }
+    
+    func authSpotify(alert: UIAlertAction!) {
+        
 
         NotificationCenter.default.addObserver(self, selector: #selector(receievedUrlFromSpotify), name: NSNotification.Name.Spotify.authURLOpened, object: nil)
         
@@ -54,7 +67,7 @@ class BeginViewController: UIViewController {
         
         SPTAuth.defaultInstance().handleAuthCallback(withTriggeredAuthURL: url) { (error, session) in
             if let error = error {
-                self.btComecar.isHidden = false
+    
                 // Pass our error onto another method which will determine how to show it
                 self.displayErrorMessage(error: error)
                 return
@@ -73,7 +86,6 @@ class BeginViewController: UIViewController {
         // When changing the UI, all actions must be done on the main thread,
         // since this can be called from a notification which doesn't run on
         // the main thread, we must add this code to the main thread's queue
-        btComecar.isHidden = true
         
         DispatchQueue.main.async {
             let alertController = UIAlertController(title: "Error",
